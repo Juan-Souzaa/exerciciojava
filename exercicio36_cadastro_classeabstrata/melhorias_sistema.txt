@@ -1,0 +1,43 @@
+MELHORIAS DE POO PARA O SISTEMA DE CADASTRO
+============================================
+
+=== MELHORIAS SIMPLES PARA AS CLASSES ===
+
+1. CLASSE DATA:
+   - Adicionar validação de datas (dia 1-31, mês 1-12)
+   - Método para calcular idade
+   - Método para verificar se é data futura
+
+2. CLASSE PESSOA:
+   - Adicionar CPF como atributo
+   - Método para validar CPF
+   - Método para calcular idade
+
+3. CLASSE CLIENTE:
+   - Adicionar telefone e email
+   - Método para verificar se é cliente VIP (baseado em código)
+
+4. CLASSE FUNCIONARIO:
+   - Adicionar data de admissão
+   - Método para calcular tempo de empresa
+   - Método para calcular salário líquido
+
+5. CLASSE GERENTE:
+   - Adicionar número de funcionários subordinados
+   - Método para listar funcionários da área
+
+6. CLASSE CADASTROPESSOAS:
+   - Método para buscar por CPF
+   - Método para listar apenas funcionários
+   - Método para listar apenas clientes
+
+=== MELHORIAS DE POO ===
+
+- Usar interfaces para métodos comuns como o de imprimeDados
+- Adicionar validações nos construtores
+- Implementar equals() e hashCode()
+- Usar toString() mais informativo
+
+=== IMPLEMENTAÇÃO ===
+
+Começar pelas melhorias simples nas classes existentes, depois evoluir para conceitos mais avançados de POO.
