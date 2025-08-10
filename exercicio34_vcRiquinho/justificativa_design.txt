@@ -1,0 +1,38 @@
+JUSTIFICATIVA DAS ESCOLHAS DE DESIGN - Sistema VcRiquinho
+
+=== DECISÕES DE DESIGN ===
+
+1. INTERFACES IMPLEMENTADAS
+   - Calculavel: contratos para cálculos de contas
+   - ProdutoCalculavel: contratos para cálculos de produtos  
+   - OperacoesCliente: operações básicas de clientes
+   Justificativa: Garantem contratos bem definidos e facilitam manutenção.
+
+2. CLASSES ABSTRATAS
+   - Cliente: base para PessoaFisica e PessoaJuridica
+   - Conta: base para diferentes tipos de conta
+   - ProdutoInvestimento: base para produtos de investimento
+   Justificativa: Evitam duplicação de código e forçam implementação específica.
+
+3. HERANÇA APLICADA
+   Cliente → PessoaFisica, PessoaJuridica
+   Conta → ContaCorrente, ContaCDI, ContaInvestimentoAutomatico  
+   ProdutoInvestimento → ProdutoRendaFixa, ProdutoRendaVariavel
+   Justificativa: Reutilização de código e especialização de comportamentos.
+
+4. POLIMORFISMO
+   - calcularRendimento() implementado diferentemente por cada classe
+   - getTipoCliente() e getDocumento() específicos por tipo
+   Justificativa: Flexibilidade para tratar objetos uniformemente.
+
+5. ENCAPSULAMENTO
+   - Atributos protected nas classes abstratas
+   - Atributos private nas classes concretas  
+   - Métodos públicos para acesso controlado
+   Justificativa: Protege dados e controla acesso às funcionalidades.
+
+=== VANTAGENS ===
+- Extensível: fácil adicionar novos tipos
+- Manutenível: código organizado
+- Reutilizável: evita duplicação
+- Flexível: múltiplas implementações

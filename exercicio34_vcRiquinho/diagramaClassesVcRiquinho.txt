@@ -1,0 +1,181 @@
+classDiagram
+    class Calculavel {
+        <<interface>>
+        + calcularRendimento(dias: int) double
+        + calcularTaxaServico(rendimento: double) double
+        + getTipoConta() String
+    }
+    
+    class ProdutoCalculavel {
+        <<interface>>
+        + calcularRendimento(dias: int) double
+        + getNome() String
+        + getDescricao() String
+    }
+    
+    class OperacoesCliente {
+        <<interface>>
+        + adicionarConta(conta: Conta) void
+        + removerConta(conta: Conta) void
+        + getContas() List~Conta~
+        + getTipoCliente() String
+        + getDocumento() String
+    }
+    
+    class Conta {
+        <<abstract>>
+        # numero: String
+        # saldo: double
+        # titular: Cliente
+        + Conta(numero: String, titular: Cliente)
+        + depositar(valor: double) void
+        + sacar(valor: double) void
+        + getNumero() String
+        + getSaldo() double
+        + getTitular() Cliente
+        + toString() String
+    }
+    
+    class ProdutoInvestimento {
+        <<abstract>>
+        # nome: String
+        # descricao: String
+        # rendimentoMensal: double
+        + ProdutoInvestimento(nome: String, descricao: String, rendimentoMensal: double)
+        + getNome() String
+        + setNome(nome: String) void
+        + getDescricao() String
+        + setDescricao(descricao: String) void
+        + getRendimentoMensal() double
+        + setRendimentoMensal(rendimentoMensal: double) void
+        + toString() String
+    }
+    
+    class Cliente {
+        <<abstract>>
+        # nome: String
+        # email: String
+        # contas: List~Conta~
+        + Cliente(nome: String, email: String)
+        + adicionarConta(conta: Conta) void
+        + removerConta(conta: Conta) void
+        + getContas() List~Conta~
+        + getNome() String
+        + setNome(nome: String) void
+        + getEmail() String
+        + setEmail(email: String) void
+        + toString() String
+    }
+    
+    class ContaCorrente {
+        + ContaCorrente(numero: String, titular: Cliente)
+        + calcularRendimento(dias: int) double
+        + calcularTaxaServico(rendimento: double) double
+        + getTipoConta() String
+    }
+    
+    class ContaCDI {
+        + TAXA_CDI_DIARIA: double
+        + TAXA_SERVICO: double
+        + ContaCDI(numero: String, titular: Cliente)
+        + calcularRendimento(dias: int) double
+        + calcularTaxaServico(rendimento: double) double
+        + getTipoConta() String
+    }
+    
+    class ContaInvestimentoAutomatico {
+        + TAXA_SERVICO_PF: double
+        + TAXA_SERVICO_PJ: double
+        - produtosInvestidos: List~ProdutoInvestimento~
+        + ContaInvestimentoAutomatico(numero: String, titular: Cliente)
+        + calcularRendimento(dias: int) double
+        + calcularTaxaServico(rendimento: double) double
+        + getTipoConta() String
+        + adicionarProduto(produto: ProdutoInvestimento) void
+        + removerProduto(produto: ProdutoInvestimento) void
+        + getProdutosInvestidos() List~ProdutoInvestimento~
+    }
+    
+    class ProdutoRendaFixa {
+        - periodoCarencia: int
+        + ProdutoRendaFixa(nome: String, descricao: String, rendimentoMensal: double, periodoCarencia: int)
+        + getPeriodoCarencia() int
+        + setPeriodoCarencia(periodoCarencia: int) void
+        + calcularRendimento(dias: int) double
+        + toString() String
+    }
+    
+    class ProdutoRendaVariavel {
+        + ProdutoRendaVariavel(nome: String, descricao: String, rendimentoMensal: double)
+        + calcularRendimento(dias: int) double
+        + toString() String
+    }
+    
+    class PessoaFisica {
+        - cpf: String
+        + PessoaFisica(nome: String, email: String, cpf: String)
+        + getTipoCliente() String
+        + getDocumento() String
+        + getCpf() String
+        + setCpf(cpf: String) void
+        + toString() String
+    }
+    
+    class PessoaJuridica {
+        - cnpj: String
+        + PessoaJuridica(nome: String, email: String, cnpj: String)
+        + getTipoCliente() String
+        + getDocumento() String
+        + getCnpj() String
+        + setCnpj(cnpj: String) void
+        + toString() String
+    }
+    
+    class Main {
+        - clientes: List~Cliente~
+        - produtos: List~ProdutoInvestimento~
+        - scanner: Scanner
+        + main(args: String[]) void
+        - exibirMenu() void
+        - gerenciarClientes() void
+        - gerenciarProdutos() void
+        - simularRendimento() void
+        - cadastrarCliente() void
+        - consultarCliente() void
+        - atualizarCliente() void
+        - excluirCliente() void
+        - adicionarConta() void
+        - cadastrarProduto() void
+        - consultarProduto() void
+        - atualizarProduto() void
+        - excluirProduto() void
+        - listarClientes() void
+        - listarProdutos() void
+        - adicionarProdutosExemplo() void
+        - lerInteiro() int
+        - lerDouble() double
+    }
+    
+    %% Relacionamentos de Implementação
+    Conta ..|> Calculavel : implements
+    ProdutoInvestimento ..|> ProdutoCalculavel : implements
+    Cliente ..|> OperacoesCliente : implements
+    
+    %% Relacionamentos de Herança
+    PessoaFisica --|> Cliente : extends
+    PessoaJuridica --|> Cliente : extends
+    ContaCorrente --|> Conta : extends
+    ContaCDI --|> Conta : extends
+    ContaInvestimentoAutomatico --|> Conta : extends
+    ProdutoRendaFixa --|> ProdutoInvestimento : extends
+    ProdutoRendaVariavel --|> ProdutoInvestimento : extends
+    
+    %% Relacionamentos de Composição
+    Cliente "1" *-- "1..*" Conta : possui
+    Conta "1" *-- "1" Cliente : titular
+    ContaInvestimentoAutomatico "1" *-- "0..*" ProdutoInvestimento : investe em
+    
+    %% Relacionamentos de Dependência
+    Main ..> Cliente : usa
+    Main ..> Conta : usa
+    Main ..> ProdutoInvestimento : usa
