@@ -1,0 +1,87 @@
+classDiagram
+    class Prato {
+        <<abstract>>
+        # preco: double
+        # dataValidade: LocalDate
+        # peso: double
+        + Prato(preco: double, dataValidade: LocalDate, peso: double)
+        + calcularPreco()* double
+        + getPreco() double
+        + setPreco(preco: double) void
+        + getDataValidade() LocalDate
+        + setDataValidade(dataValidade: LocalDate) void
+        + getPeso() double
+        + setPeso(peso: double) void
+        + toString() String
+    }
+    
+    class Pizza {
+        - recheio: String
+        - borda: String
+        - molho: String
+        + Pizza(preco: double, dataValidade: LocalDate, peso: double, recheio: String, borda: String, molho: String)
+        + calcularPreco() double
+        + getRecheio() String
+        + setRecheio(recheio: String) void
+        + getBorda() String
+        + setBorda(borda: String) void
+        + getMolho() String
+        + setMolho(molho: String) void
+        + toString() String
+    }
+    
+    class Lanche {
+        - tipoPao: String
+        - recheio: String
+        - molho: String
+        + Lanche(preco: double, dataValidade: LocalDate, peso: double, tipoPao: String, recheio: String, molho: String)
+        + calcularPreco() double
+        + getTipoPao() String
+        + setTipoPao(tipoPao: String) void
+        + getRecheio() String
+        + setRecheio(recheio: String) void
+        + getMolho() String
+        + setMolho(molho: String) void
+        + toString() String
+    }
+    
+    class Salgadinho {
+        - tipo: String
+        - massa: String
+        - recheio: String
+        + Salgadinho(preco: double, dataValidade: LocalDate, peso: double, tipo: String, massa: String, recheio: String)
+        + calcularPreco() double
+        + getTipo() String
+        + setTipo(tipo: String) void
+        + getMassa() String
+        + setMassa(massa: String) void
+        + getRecheio() String
+        + setRecheio(recheio: String) void
+        + toString() String
+    }
+    
+    class Pedido {
+        - nomeCliente: String
+        - taxaServico: double
+        - itensConsumidos: List~Prato~
+        + Pedido(nomeCliente: String, taxaServico: double)
+        + adicionarItem(prato: Prato) void
+        + removerItem(prato: Prato) void
+        + calcularTotal() double
+        + mostrarTroco(valorRecebido: double) void
+        + gerarNotaFiscal() String
+        + getNomeCliente() String
+        + setNomeCliente(nomeCliente: String) void
+        + getTaxaServico() double
+        + setTaxaServico(taxaServico: double) void
+        + getItensConsumidos() List~Prato~
+        + toString() String
+    }
+    
+    %% Relacionamentos de Herança
+    Pizza --|> Prato : extends
+    Lanche --|> Prato : extends
+    Salgadinho --|> Prato : extends
+    
+    %% Relacionamentos de Composição
+    Pedido "1" *-- "0..*" Prato : contém

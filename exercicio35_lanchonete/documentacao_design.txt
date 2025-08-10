@@ -1,0 +1,84 @@
+DOCUMENTAÇÃO DO SISTEMA QUASE TRÊS LANCHES
+==========================================
+
+=== ESCOLHAS DE DESIGN ===
+
+1. HERANÇA IMPLEMENTADA
+   - Classe abstrata Prato como base para Pizza, Lanche e Salgadinho
+   - Todos os pratos herdam: preço, data de validade e peso
+   - Método abstrato calcularPreco() força implementação específica
+
+   Justificativa: Evita duplicação de código e garante que cada prato 
+   tenha sua própria lógica de cálculo de preço.
+
+2. POLIMORFISMO APLICADO
+   - Método calcularPreco() implementado diferentemente em cada classe:
+     * Pizza: acréscimo por borda recheada e recheio premium
+     * Lanche: acréscimo por pão especial e recheio duplo
+     * Salgadinho: acréscimo por tipo assado e recheios especiais
+   
+   Justificativa: Permite tratar todos os pratos de forma uniforme 
+   enquanto cada um mantém seu comportamento específico.
+
+3. ENCAPSULAMENTO
+   - Atributos protected na classe abstrata (acessíveis por herança)
+   - Atributos private nas classes concretas
+   - Métodos públicos para acesso controlado aos dados
+   
+   Justificativa: Protege a integridade dos dados e controla o acesso.
+
+4. COMPOSIÇÃO
+   - Pedido contém uma lista de Pratos
+   - Relacionamento 1:N entre Pedido e Prato
+   - ArrayList permite adicionar/remover itens dinamicamente
+   
+   Justificativa: Flexibilidade para gerenciar pedidos com múltiplos itens.
+
+=== FUNCIONALIDADES IMPLEMENTADAS ===
+
+1. GERENCIAMENTO DE PRATOS
+   - Cardápio pré-carregado com exemplos
+   - Cálculo automático de preços com base em características
+   - Informações completas: preço, validade, peso e especificações
+
+2. SISTEMA DE PEDIDOS
+   - Criação de pedidos com nome do cliente e taxa de serviço
+   - Adição/remoção de itens do pedido
+   - Cálculo automático do total
+
+3. NOTA FISCAL
+   - Geração automática com todos os itens
+   - Detalhamento de preços individuais e totais
+   - Informações da lanchonete
+
+4. SISTEMA DE TROCO
+   - Cálculo automático do troco
+   - Validação de valor recebido
+   - Exibição clara de valores
+
+5. INTERFACE DE TESTE
+   - Menu interativo para demonstrar funcionalidades
+   - Teste específico de polimorfismo
+   - Consulta de pedidos realizados
+
+=== VANTAGENS DO DESIGN ===
+
+- EXTENSIBILIDADE: Fácil adicionar novos tipos de pratos
+- MANUTENIBILIDADE: Código organizado e bem estruturado
+- REUTILIZAÇÃO: Herança evita duplicação de código
+- FLEXIBILIDADE: Polimorfismo permite comportamentos específicos
+- ROBUSTEZ: Encapsulamento protege dados críticos
+
+=== FUNCIONAMENTO DO SISTEMA ===
+
+1. O sistema inicializa com um cardápio pré-definido
+2. O usuário pode visualizar pratos disponíveis
+3. Pedidos são criados informando cliente e taxa de serviço
+4. Itens são adicionados ao pedido a partir do cardápio
+5. O sistema calcula automaticamente preços finais (polimorfismo)
+6. Nota fiscal é gerada com todos os detalhes
+7. Sistema calcula e exibe o troco para pagamentos em dinheiro
+8. Todos os pedidos ficam armazenados para consulta
+
+O design implementa corretamente os conceitos de POO solicitados,
+atendendo a todos os requisitos funcionais especificados pelo cliente.
